@@ -9,7 +9,6 @@ export const Container = styled.div`
   padding: 0 10%;
 `;
 export const CardWelcome = styled.div`
-  /* margin-top: 100px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,6 +19,7 @@ export const AreaText = styled.div`
 
   h2 {
     font-size: 40px;
+    color: #50758d;
 
     span {
       color: #fad206;
@@ -32,7 +32,7 @@ export const AreaText = styled.div`
 
     a {
       text-decoration: none;
-      color: #2d2d2d;
+      color: #50758d;
       font-weight: 500;
     }
   }
