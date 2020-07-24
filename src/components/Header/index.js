@@ -23,7 +23,7 @@ const Header = () => {
 
       <AreaLogin>
         <Link type="button" to="/login">
-          Login
+          Entrar
         </Link>
         <Link type="button" to="/register">
           Cadastre-se
