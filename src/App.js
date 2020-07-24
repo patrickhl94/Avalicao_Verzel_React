@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import GlobalStyle from './styles/global';
 import Routes from './routes';
 
-import store from './store';
+import { store, persistor } from './store';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -15,13 +16,15 @@ import Footer from './components/Footer';
 const App = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Header />
-        <Routes />
-        <Footer />
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Header />
+          <Routes />
+          <Footer />
 
-        <GlobalStyle />
-      </BrowserRouter>
+          <GlobalStyle />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   );
 };
