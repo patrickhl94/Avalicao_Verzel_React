@@ -1,19 +1,4 @@
-const user = {
-  name: '',
-  email: '',
-  birth: '',
-  cpf: '',
-  zipCode: '',
-  number: '',
-  street: '',
-  neighborhood: '',
-  city: '',
-  state: '',
-  password: '',
-  passwordConfirme: '',
-};
-
-function userData(state = user, action) {
+function userData(state = {}, action) {
   switch (action.type) {
     case 'ADD_NAME':
       return { ...state, name: action.textInput };
