@@ -41,6 +41,7 @@ module.exports = {
         'no-unused-vars': ['error', { 'argdIgnorePAtter': 'next' }],
         'linebreak-style': 0,
         'global-require': 0,
-        'react/static-property-placement': 'off'
+        'react/static-property-placement': 'off',
+        'jsx-a11y/label-has-associated-control': 'off'
     }
 };
