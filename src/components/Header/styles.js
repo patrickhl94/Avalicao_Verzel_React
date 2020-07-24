@@ -26,14 +26,15 @@ export const AreaMenu = styled.div`
     text-decoration: none;
     font-weight: 700;
     font-size: 18px;
-    color: #2d2d2d;
+    color: #50758d;
     margin-left: 20px;
     transition: opacity 0.3s;
+    border-radius: 5px;
   }
 
   > :hover {
     opacity: 0.6;
-    border-bottom: solid 2.5px black;
+    border-bottom: solid 3px #50758d;
   }
 `;
 
@@ -48,14 +49,14 @@ export const AreaLogin = styled.div`
     font-weight: 500;
     background: transparent;
     border-radius: 6px;
-    border: solid 1.5px #c9a700;
-    color: #c9a700;
+    border: solid 1.5px #fad206;
+    color: #50758d;
     transition: border 0.2s;
-    transition: color 0.4s;
+    transition: color 0.2s;
   }
 
   > :hover {
-    color: #fad206;
-    border: solid 1.5px #fad206;
+    color: #2b4656;
+    border: solid 1.5px #eac007;
   }
 `;
