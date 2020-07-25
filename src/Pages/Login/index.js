@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import {
@@ -14,8 +14,7 @@ import Input from '../../components/InputLogin';
 import logo from '../../assets/images/logo.svg';
 
 const Login = () => {
-  const userReducer = useSelector(state => state.user);
-  console.log('INITIAL ', userReducer);
+  //  const userReducer = useSelector(state => state.userRegister);
 
   return (
     <Container>
