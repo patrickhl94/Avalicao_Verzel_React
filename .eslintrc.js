@@ -42,6 +42,7 @@ module.exports = {
         'linebreak-style': 0,
         'global-require': 0,
         'react/static-property-placement': 'off',
-        'jsx-a11y/label-has-associated-control': 'off'
+        'jsx-a11y/label-has-associated-control': 'off',
+        'no-plusplus': 'off'
     }
 };
