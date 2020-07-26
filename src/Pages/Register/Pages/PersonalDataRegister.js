@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback, useState, useEffect } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { FaAngleRight } from 'react-icons/fa';
@@ -8,7 +8,7 @@ import validatorCPF from '../../../utils/validatorCPF';
 import validatorBirth from '../../../utils/validatorBirth';
 
 import { AreaProxOrRetu, Container } from './styles';
-import Input from '../../../components/Input';
+import { Input } from '../../../components/Input';
 
 const PersonalDataRegister = () => {
   const history = useHistory();
@@ -16,13 +16,27 @@ const PersonalDataRegister = () => {
   const [dataUser, setDataUser] = useState({});
   const [disabledButton, setDisabledButton] = useState(false);
   const [stateError, setStateError] = useState(false);
-  const [msgError, setMsgError] = useState('Erro ao tentar logar');
+  const [msgError, setMsgError] = useState('');
+
+  const dataUserReducer = useSelector(
+    state => state.userRegister,
+    shallowEqual,
+  );
+
+  useEffect(() => {
+    if (dataUserReducer.personalDataRedister) {
+      const { personalDataRedister } = dataUserReducer;
+
+      setDataUser(personalDataRedister);
+      setDisabledButton(true);
+    }
+  }, [dataUserReducer]);
 
   const onChange = useCallback(
     (value, nameValue) => {
       dataUser[nameValue] = value;
 
-      setDataUser(dataUser);
+      setDataUser({ ...dataUser });
 
       if (dataUser.name && dataUser.birth && dataUser.email) {
         return setDisabledButton(true);
@@ -48,7 +62,7 @@ const PersonalDataRegister = () => {
 
       if (!validatorBirth(dataUser.birth)) {
         setStateError(true);
-        setMsgError('É preciso ter mis que 12 anos par se cadastrar');
+        setMsgError('É preciso ter mais que 12 anos par se cadastrar');
         return;
       }
 
@@ -61,6 +75,11 @@ const PersonalDataRegister = () => {
       dispatch({
         type: 'ADD_PERSONAL_DATA_REGISTER',
         dataUser,
+      });
+
+      dispatch({
+        type: 'ADD_EMAIL',
+        email: dataUser.email,
       });
 
       history.push('/register/addressRegister');
@@ -81,6 +100,7 @@ const PersonalDataRegister = () => {
             label: 'Nome *',
             name: 'name',
             typeReducer: 'ADD_NAME',
+            value: dataUser.name,
             onChange,
           }}
         />
@@ -90,6 +110,7 @@ const PersonalDataRegister = () => {
             label: 'E-mail *',
             name: 'email',
             typeReducer: 'ADD_EMAIL',
+            value: dataUser.email,
             onChange,
           }}
         />
@@ -99,6 +120,7 @@ const PersonalDataRegister = () => {
             label: 'Nascimento *',
             name: 'birth',
             typeReducer: 'ADD_BIRTH',
+            value: dataUser.birth,
             onChange,
           }}
         />
@@ -108,6 +130,7 @@ const PersonalDataRegister = () => {
             label: 'CPF',
             name: 'cpf',
             typeReducer: 'ADD_CPF',
+            value: dataUser.cpf,
             onChange,
           }}
         />

@@ -1,23 +1,66 @@
-import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import * as Yup from 'yup';
 import { useHistory, Link } from 'react-router-dom';
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa';
 
-import { AreaProxOrRetu } from './styles';
+import verifyZipCode from '../../../utils/verifyZipCode';
 
-import Input from '../../../components/Input';
+import { AreaProxOrRetu, Container } from './styles';
+import { Input } from '../../../components/Input';
 
 const AddressRegister = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [dataUser, setDataUser] = useState({});
+  const [stateError, setStateError] = useState(false);
+  const [msgError, setMsgError] = useState('Insira um CEP válido');
+
+  const dataUserReducer = useSelector(
+    state => state.userRegister,
+    shallowEqual,
+  );
+
+  useEffect(() => {
+    if (dataUserReducer.addressRegister) {
+      const { addressRegister } = dataUserReducer;
+
+      setDataUser(addressRegister);
+    }
+  }, [dataUserReducer]);
 
   const onChange = useCallback(
-    (value, nameValue) => {
-      dataUser[nameValue] = value;
+    async (value, nameValue) => {
+      setStateError(false);
 
-      setDataUser(dataUser);
+      dataUser[nameValue] = value;
+      setDataUser({ ...dataUser });
+
+      if (nameValue === 'zipCode' && value.length === 8) {
+        const address = await verifyZipCode(value);
+
+        if (address.erro) {
+          setStateError(true);
+          setMsgError('Insira um CEP válido');
+
+          setDataUser({
+            street: '',
+            neighborhood: '',
+            city: '',
+            state: '',
+          });
+        }
+
+        setDataUser({
+          ...dataUser,
+          number: '',
+          street: address.logradouro,
+          neighborhood: address.bairro,
+          city: address.localidade,
+          state: address.uf,
+        });
+      }
+      console.log('entrou2');
     },
     [dataUser],
   );
@@ -47,7 +90,7 @@ const AddressRegister = () => {
   }, [dataUser, history, dispatch]);
 
   return (
-    <>
+    <Container>
       <div>
         <Input
           data={{
@@ -55,6 +98,7 @@ const AddressRegister = () => {
             label: 'Cep',
             name: 'zipCode',
             typeReducer: 'ADD_ZIPCODE',
+            value: dataUser.zipCode,
             onChange,
           }}
         />
@@ -64,6 +108,7 @@ const AddressRegister = () => {
             label: 'Rua',
             name: 'street',
             typeReducer: 'ADD_STREET',
+            value: dataUser.street,
             onChange,
           }}
         />
@@ -73,6 +118,7 @@ const AddressRegister = () => {
             label: 'Número',
             name: 'number',
             typeReducer: 'ADD_NUMBER',
+            value: dataUser.number,
             onChange,
           }}
         />
@@ -82,6 +128,7 @@ const AddressRegister = () => {
             label: 'Bairro',
             name: 'neighborhood',
             typeReducer: 'ADD_NEIGHBORHOOD',
+            value: dataUser.neighborhood,
             onChange,
           }}
         />
@@ -91,6 +138,7 @@ const AddressRegister = () => {
             label: 'Cidade',
             name: 'city',
             typeReducer: 'ADD_CITY',
+            value: dataUser.city,
             onChange,
           }}
         />
@@ -100,10 +148,12 @@ const AddressRegister = () => {
             label: 'Estado',
             name: 'state',
             typeReducer: 'ADD_STATE',
+            value: dataUser.state,
             onChange,
           }}
         />
       </div>
+      {stateError && <small>{msgError}</small>}
       <AreaProxOrRetu disabledButton>
         <Link type="button" to="/register">
           <FaAngleLeft size={25} />
@@ -114,7 +164,7 @@ const AddressRegister = () => {
           <FaAngleRight size={25} />
         </button>
       </AreaProxOrRetu>
-    </>
+    </Container>
   );
 };
 
