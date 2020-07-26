@@ -1,6 +1,9 @@
-import React from 'react';
-// import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useHistory, Link } from 'react-router-dom';
+import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
+
+// import api from '../../services/api';
 
 import {
   Container,
@@ -9,12 +12,56 @@ import {
   LoginCard,
   AreaRegister,
 } from './styles';
-import Input from '../../components/InputLogin';
+import { Input } from '../../components/Input';
 
 import logo from '../../assets/images/logo.svg';
 
 const Login = () => {
-  //  const userReducer = useSelector(state => state.userRegister);
+  const sessionReducer = useSelector(state => state.session);
+  const [dataSession, setDataSession] = useState({});
+  const [stateError, setStateError] = useState(false);
+  const [msgError, setMsgError] = useState('');
+  const history = useHistory();
+
+  useEffect(() => {
+    if (sessionReducer) {
+      setDataSession({ ...sessionReducer });
+    }
+  }, [sessionReducer]);
+
+  const onChange = useCallback(
+    (value, nameValue) => {
+      dataSession[nameValue] = value;
+
+      setDataSession({ ...dataSession });
+    },
+    [dataSession],
+  );
+
+  const initSession = useCallback(
+    async event => {
+      event.preventDefault();
+
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .required('E-mail é obrigatório para entrar')
+          .email('E-mail inválido '),
+        password: Yup.string().required('Senha é obrigatória para entrar'),
+      });
+
+      try {
+        await schema.validate(dataSession);
+
+        // const response = api.post('session', dataSession);
+
+        history.push('./tasks');
+      } catch (error) {
+        setStateError(true);
+        setMsgError(error.message || 'Credenciais inválidas');
+      }
+    },
+    [dataSession],
+  );
 
   return (
     <Container>
@@ -26,10 +73,26 @@ const Login = () => {
 
         <RightCard>
           <h1>Entrar no ListTasks</h1>
-          <form onSubmit={() => alert('Foi')}>
-            <Input data={{ type: 'text', name: 'E-mail' }} />
-            <Input data={{ type: 'password', name: 'Password' }} />
-
+          <form onSubmit={initSession}>
+            <Input
+              data={{
+                onChange,
+                value: dataSession.email,
+                type: 'text',
+                label: 'E-mail',
+                name: 'email',
+              }}
+            />
+            <Input
+              data={{
+                onChange,
+                value: dataSession.password,
+                type: 'password',
+                label: 'Senha',
+                name: 'password',
+              }}
+            />
+            {stateError && <small>{msgError}</small>}
             <button type="submit">Entrar</button>
           </form>
 

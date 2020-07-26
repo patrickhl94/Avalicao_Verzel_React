@@ -62,6 +62,11 @@ export const RightCard = styled.div`
       }
     }
   }
+
+  small {
+    color: red;
+    font-weight: 500;
+  }
 `;
 
 export const AreaRegister = styled.div`
