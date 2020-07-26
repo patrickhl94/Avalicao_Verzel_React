@@ -9,9 +9,6 @@ import Routes from './routes';
 import { store, persistor } from './store';
 
 import Header from './components/Header';
-import Footer from './components/Footer';
-
-// import { Container } from './styles';
 
 const App = () => {
   return (
@@ -20,7 +17,6 @@ const App = () => {
         <BrowserRouter>
           <Header />
           <Routes />
-          <Footer />
 
           <GlobalStyle />
         </BrowserRouter>
