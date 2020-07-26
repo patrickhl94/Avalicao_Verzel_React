@@ -42,6 +42,19 @@ export const ModalBody = styled.div`
   border: 0;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   border: solid 5px #fad206;
+
+  > div {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin: 0 10px;
+    }
+  }
+
+  small {
+    color: ${({ colorSmall }) => (colorSmall ? 'red' : 'blue')};
+  }
 `;
 
 export const ModalHeader = styled.div`
