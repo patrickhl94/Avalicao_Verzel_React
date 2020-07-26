@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   justify-content: center;
@@ -62,17 +62,5 @@ export const RightCard = styled.div`
         transition: color 0.2s;
       }
     }
-  }
-`;
-
-const animateLeft = keyframes`
-  from {
-    opacity: 0;
-    transform: translateX(-100px)
-  }
- 
-  to {
-    opacity: 1
-    transform: translateX(100px)
   }
 `;
