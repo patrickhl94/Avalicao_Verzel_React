@@ -9,7 +9,7 @@ import Login from '../Pages/Login';
 const Routes = () => (
   <Switch>
     <Route path="/" exact component={Home} />
-    <Route path="/list" component={ListTasks} />
+    <Route path="/tasks" component={ListTasks} />
     <Route path="/register" component={Register} />
     <Route path="/login" component={Login} />
   </Switch>
