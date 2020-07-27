@@ -84,8 +84,6 @@ const PersonalDataRegister = () => {
 
       history.push('/register/addressRegister');
     } catch (error) {
-      console.log('Erro: ', error);
-
       setStateError(true);
       setMsgError(error.message);
     }
