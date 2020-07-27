@@ -44,6 +44,7 @@ module.exports = {
         'react/static-property-placement': 'off',
         'jsx-a11y/label-has-associated-control': 'off',
         'no-plusplus': 'off',
-        'no-unused-expressions': 'off'
+        'no-unused-expressions': 'off',
+        'react/jsx-props-no-spreading': 'off'
     }
 };
