@@ -1,68 +1,156 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+# **ListTasks**
 
-### `yarn start`
+<img align="left" height="150px" src="src/assets/images/logo.svg">
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Teste técnico, desenvolvido em React JS para fazer parte do time de desenvovedores da [VERXZEL](https://pt-br.reactjs.org/) 
+### O desafio deste teste, do qual eu nomeei de **ListTasks**, consiste em desenvolver uma aplicação web que permitirá o usuário se cadastrar, realizar login e gerenciar tarefas, como inserir, remover, listar mudar o status da tarefa (concluída ou não concluída). 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `yarn test`
+</br>
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+# Requisitos funcionais da aplicação
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Criar página de login
+  * Usuário deverá logar com email e senha.
+* Criar página de Cadastro
+  * Permitir que o usuário se cadastre com nome, email, data de nascimento e senha como
+  campos obrigatórios, cpf e endereço opcionais
+  * Permitir apenas usuário com idade maior que 12 anos
+  * Validar CPF
+  * Auto complete dos campos do endereço ao inserir o CEP
+* Criar página de lista de tarefas
+  * Permitir que o usuário adcione novas tarefas
+  * Permitir que o usuário remova tarefas
+  * Permitir que o usuário atualize as tarefas
+  * Permitir que o usuário visualize a tarefa
+  * Permitir que o usuário atualize o status das tarefas (concluida ou não concluida)
+  
+<br>
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# Requisitos não funcionais da aplicação
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Utilizar React JS
+* Utilizar Redux
+* Utilizar Redux Persist
 
-### `yarn eject`
+<br>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Tecnologias utilizadas
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Nesta aplicação, proucurei utilizar os recursos mais atualizados e estáveis do ecossistema React, segue abaixo as principais dependências instaladas:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+````JSON
+dependencies {
+  "axios": "^0.19.2",
+  "date-fns": "^2.15.0",
+  "immer": "^7.0.7",
+  "prop-types": "^15.7.2",
+  "react-icons": "^3.10.0",
+  "react-redux": "^7.2.0",
+  "react-router-dom": "^5.2.0",
+  "redux": "^4.0.5",
+  "redux-persist": "^6.0.0",
+  "styled-components": "^5.1.1",
+  "uuidv4": "^6.2.0",
+  "yup": "^0.29.1",
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+},
+devDependencies: {
+    "eslint": "6.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "json-server": "^0.16.1",
+    "prettier": "^2.0.5"
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+````
 
-### Code Splitting
+  ## Estilização dos componentes
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+ #### Optei por utilizar o `styled-componets/native`, para estilizar meus componentes, considerando a facilidade que ele nos dar em inplementar variáveis e funções na estilização.
 
-### Analyzing the Bundle Size
+<br>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Making a Progressive Web App
+# **Requisitos para instalar e executar a aplicação em ambiente de desenvolvimento:**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+  * Node instalado
+  * NPM ou YARN instalado
 
-### Advanced Configuration
+### Para executar o App é necessário instalar as depedencias do _package.json_
+  Como nesse app eu utilizei o `YARN`, irei ilustra os comandos com o mesmo.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## Instalar dependências:
+```bash
+yarn install
+```
+## Iniciar a execução da Aplicação Web:
+```bash
+yarn start
+```
+## Iniciar a API _fake_:
+```bash
+yarn json-server server.json -p 3333 -w 
+```
 
-### Deployment
+</br>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+# Estrutura principal da aplicação
+- `src/index.js` -> Arquivo raiz principal da aplicação que contem o `ReactDOM.render`
+- `src/App.js` -> Componente inicial do qual direciona para as rotas
+- `src/pages/` -> Pasta que contem os arquivos de páginas do projeto como (Login, Cadastro e Lista de Tarefas)
+- `src/components/` -> Pasta que contém os componentes de apoio que são utilizados em mais de uma tela ou que são apenas de visualização (Input, Header, Modal)
+- `src/store` -> Pasta que contem arquivo de configuraça, store e modules do Redux
+- `src/routes` -> Pasta que contem as rotas principais da aplicação
+- `src/services` -> Pasta que contem arquivos de configuração de APIs externas
+- `src/assets/` -> Pasta que contem arquivos acessiveis státicos como imagens 
+- `src/utils` -> Arquivos úteis com funções expecíficas como validação de CEP, CPF e data de nascimento.
+  
+</br>
 
-### `yarn build` fails to minify
+<h1 align="center">
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+ **Screenshots da aplicação**
+
+</h1>
+
+<img align="center" src="src/assets/screenShots/screen01.png">
+
+---
+
+<img align="center" src="src/assets/screenShots/screen02.png">
+
+---
+
+<img align="center" src="src/assets/screenShots/screen03.png">
+
+---
+
+<img align="center" src="src/assets/screenShots/screen04.png">
+
+---
+
+<img align="center" src="src/assets/screenShots/screen05.png">
+
+---
+
+<img align="center" src="src/assets/screenShots/screen06.png">
+
+---
+
+<img align="center" src="src/assets/screenShots/screen07.png">
+
+---
+
+<img align="center" src="src/assets/screenShots/screen08.png">
+
+---
+
+<img align="center" src="src/assets/screenShots/screen09.png">
+
+---
