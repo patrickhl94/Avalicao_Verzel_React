@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { Container, AreaLogo, AreaMenu, AreaLogin } from './styles';
+import { Container, AreaLogo, AreaMenu, AreaLogin, AreaLogout } from './styles';
 
 import logo from '../../assets/images/logo.svg';
 
 const Header = () => {
+  const userSession = useSelector(state => state.session);
+  const dispatch = useDispatch();
+
+  const logout = useCallback(() => {
+    dispatch({
+      type: 'END_SESSION',
+    });
+  }, [dispatch]);
+
   return (
     <Container>
       <Container>
@@ -21,14 +31,19 @@ const Header = () => {
         </AreaMenu>
       </Container>
 
-      <AreaLogin>
-        <Link type="button" to="/login">
-          Entrar
-        </Link>
-        <Link type="button" to="/register">
-          Cadastre-se
-        </Link>
-      </AreaLogin>
+      {userSession.token ? (
+        <AreaLogout>
+          <span>Patrick Lima</span>
+          <button onClick={logout} type="button">
+            Sair
+          </button>
+        </AreaLogout>
+      ) : (
+        <AreaLogin>
+          <Link to="/">Entrar</Link>
+          <Link to="/register">Cadastre-se</Link>
+        </AreaLogin>
+      )}
     </Container>
   );
 };
