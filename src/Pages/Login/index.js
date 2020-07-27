@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-// import api from '../../services/api';
+import api from '../../services/api';
 
 import {
   Container,
@@ -11,6 +11,8 @@ import {
   RightCard,
   LoginCard,
   AreaRegister,
+  CardWelcome,
+  AreaText,
 } from './styles';
 import { Input } from '../../components/Input';
 
@@ -18,6 +20,7 @@ import logo from '../../assets/images/logo.svg';
 
 const Login = () => {
   const sessionReducer = useSelector(state => state.session);
+  const dispatch = useDispatch();
   const [dataSession, setDataSession] = useState({});
   const [stateError, setStateError] = useState(false);
   const [msgError, setMsgError] = useState('');
@@ -52,23 +55,49 @@ const Login = () => {
       try {
         await schema.validate(dataSession);
 
-        // const response = api.post('session', dataSession);
+        const response = await api.get(
+          `/users?password=${dataSession.password}&email=${dataSession.email}`,
+          dataSession,
+        );
+
+        if (!response.data[0]) {
+          throw new Error('Credenciais Inválidas');
+        }
+
+        dispatch({
+          type: 'START_SESSION',
+          data: response.data[0],
+        });
 
         history.push('./tasks');
       } catch (error) {
         setStateError(true);
-        setMsgError(error.message || 'Credenciais inválidas');
+        setMsgError(error.message);
       }
     },
-    [dataSession],
+    [dataSession, dispatch, history],
   );
 
   return (
     <Container>
+      <CardWelcome>
+        <AreaText>
+          <h2>
+            Bem vindo(a) ao <span>ListTasks</span>
+          </h2>
+          <p>
+            O ListTask é um projeto avaliativo desenvolvido em React, realizado
+            para concorrer uma vaga de desenvolvedor frontend na{' '}
+            <a href="https://www.verzel.com.br/">VERZEL</a>, empresa de
+            desenvolvimento, consultoria e reestruturação de Sistemas de
+            Informação.
+          </p>
+        </AreaText>
+      </CardWelcome>
+
       <LoginCard>
         <LeftCard>
           <img src={logo} width="300px" alt="Logo ListTask" />
-          <h1>ListTasks</h1>
         </LeftCard>
 
         <RightCard>
