@@ -35,12 +35,6 @@ const PasswordRegister = () => {
   );
 
   const Register = useCallback(async () => {
-    // const {
-    //   addressRegister,
-    //   passordRegister,
-    //   personalDataRedister,
-    // } = dataUserReducer;
-
     dispatch({
       type: 'ADD_PASSWORD_REGISTER',
       dataUser,
@@ -78,6 +72,19 @@ const PasswordRegister = () => {
       await schema.validate(dataUserReducer);
       await schemaPassword.validate(dataUser);
 
+      /**
+       * SCRIPT PARA ENVIAR DADOS PARA API, PARA TESTAR BASTAR
+       * RETIRAR OS COMENTÁRIOS DAS LINHAS 7 E 80 A 90, PORÉM,
+       * COMO ESTA APLICAÇÃO ESTÁ UTILIZANDO UMA API FAKE, NÁO
+       * É POSSÍVEL ENVIAR ESTA REQUISIÇÃO
+       */
+
+      // const {
+      //   addressRegister,
+      //   passordRegister,
+      //   personalDataRedister,
+      // } = dataUserReducer;,
+      //
       // await api.post('/register', {
       //   addressRegister,
       //   passordRegister,
@@ -94,11 +101,10 @@ const PasswordRegister = () => {
       });
 
       alert('Parabéns, seu cadastro foi realizado com sucesso!');
-      history.push('/login');
+      history.push('/');
     } catch (error) {
       setStateError(true);
       setMsgError(error.message);
-      console.log('Erro: ', error);
     }
   }, [history, dataUser, dispatch, dataUserReducer]);
 
