@@ -97,6 +97,15 @@ yarn start
 ```bash
 yarn json-server server.json -p 3333 -w 
 ```
+# **IMPORTANTE !**
+
+  Esta aplicação está utilizando a API fake [JSON Server](https://github.com/typicode/json-server) para realizar o login na aplicação e para fazer a listagem das tarefas, simulando está buscando os dados de uma API Rest, porém os dados de autenticação e listagem de tarefas, está de forma estática no arquivo `server.json` na raiz da aplicação. Para visualizar os dados ou alterar os dados, basta acessar este arquivo json, e alterar manualmente os dados. 
+  <br>
+  <br>
+  **POR PADRÃO JA DEIXEI ALGUNS USUÁRIOS CADASTRADOS, SE QUISER ACESSAR COM UM DOS USUÁRIOS CADASTRADOS, USE AS SEGUINTES CREDENCIAIS:**
+  
+  * email: **patrick@email.com**     
+  * email: **12345678**     
 
 </br>
 
