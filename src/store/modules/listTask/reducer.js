@@ -44,6 +44,8 @@ function listTask(state = [], action) {
       });
     case 'CLEAR_ALL_TASKS':
       return [];
+    case 'UPDATE_ALL_TASKS':
+      return action.newListTasks;
     default:
       return state;
   }
