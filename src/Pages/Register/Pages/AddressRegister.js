@@ -60,7 +60,6 @@ const AddressRegister = () => {
           state: address.uf,
         });
       }
-      console.log('entrou2');
     },
     [dataUser],
   );
