@@ -2,14 +2,16 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   justify-content: center;
+  align-items: center;
   display: flex;
   padding-top: 150px;
+  width: 100%;
 `;
 
 export const LoginCard = styled.div`
   display: flex;
   background: #fff;
-  padding: 20px;
+  padding: 30px;
   border-radius: 15px;
   border: solid 2.5px #fad206;
   -webkit-box-shadow: 2px 2px 14px 0px rgba(50, 50, 50, 0.4);
@@ -21,11 +23,6 @@ export const LeftCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  h1 {
-    margin-top: 15px;
-    color: #fad206;
-  }
 `;
 
 export const RightCard = styled.div`
@@ -81,5 +78,36 @@ export const AreaRegister = styled.div`
     text-decoration: none;
     font-weight: 700;
     color: #50758d;
+  }
+`;
+export const CardWelcome = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 550px;
+  margin: 0 25px;
+`;
+
+export const AreaText = styled.div`
+  text-align: center;
+
+  h2 {
+    font-size: 40px;
+    color: #50758d;
+
+    span {
+      color: #fad206;
+    }
+  }
+
+  p {
+    margin-top: 20px;
+    font-size: 18px;
+
+    a {
+      text-decoration: none;
+      color: #50758d;
+      font-weight: 500;
+    }
   }
 `;
