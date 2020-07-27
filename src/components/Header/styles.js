@@ -38,6 +38,37 @@ export const AreaMenu = styled.div`
   }
 `;
 
+export const AreaLogout = styled.div`
+  display: flex;
+  align-items: center;
+
+  button {
+    text-decoration: none;
+    margin-left: 8px;
+    height: 35px;
+    padding: 8px 30px;
+    font-weight: 500;
+    background: transparent;
+    border-radius: 6px;
+    border: solid 1.5px #ff2121;
+    color: #50758d;
+    transition: border 0.2s;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #2b4656;
+      border: solid 1.5px #dd0000;
+    }
+  }
+
+  > span {
+    font-size: 25px;
+    font-weight: 700;
+    color: #50758d;
+    margin-right: 10px;
+  }
+`;
+
 export const AreaLogin = styled.div`
   display: flex;
 
