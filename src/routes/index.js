@@ -1,18 +1,27 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import Home from '../Pages/Home';
 import ListTasks from '../Pages/ListTasks';
 import Register from '../Pages/Register';
 import Login from '../Pages/Login';
 
-const Routes = () => (
-  <Switch>
-    <Route path="/" exact component={Home} />
-    <Route path="/tasks" component={ListTasks} />
-    <Route path="/register" component={Register} />
-    <Route path="/login" component={Login} />
-  </Switch>
-);
+const Routes = () => {
+  const userSession = useSelector(state => state.session);
+
+  return (
+    <Switch>
+      <Route path="/" exact component={Login} />
+      <Route path="/register" component={Register} />
+
+      <Route
+        path="/tasks"
+        render={() => {
+          return userSession.token ? <ListTasks /> : <Redirect to="/" />;
+        }}
+      />
+    </Switch>
+  );
+};
 
 export default Routes;
