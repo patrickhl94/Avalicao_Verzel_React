@@ -25,9 +25,18 @@ const Header = () => {
         </AreaLogo>
 
         <AreaMenu>
-          <Link to="/">Sobre</Link>
-          <Link to="/">Entre em Contato</Link>
-          <Link to="/">Versão Premium</Link>
+          <a
+            target="blank"
+            href="https://github.com/patrickhl94/Avalicao_Verzel_React"
+          >
+            Sobre
+          </a>
+          <Link
+            style={{ cursor: userSession.token ? 'pointer' : 'not-allowed' }}
+            to="/tasks"
+          >
+            Lista de Tarefas
+          </Link>
         </AreaMenu>
       </Container>
 
