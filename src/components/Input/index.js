@@ -10,7 +10,7 @@ const Input = ({ data }) => {
         onChange={event => data.onChange(event.target.value, data.name)}
         value={data.value || ''}
         type={data.type}
-        placeholder=" "
+        placeholder={data.label}
       />
       <label>{data.label}</label>
     </Container>
@@ -25,7 +25,7 @@ const TextArea = ({ data }) => {
         onChange={event => data.onChange(event.target.value, data.name)}
         value={data.value || ''}
         type={data.type}
-        placeholder=" "
+        placeholder={data.label}
       />
       <label>{data.label}</label>
     </Container>
