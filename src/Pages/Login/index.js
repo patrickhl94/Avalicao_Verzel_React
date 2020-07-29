@@ -3,16 +3,12 @@ import { useHistory, Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 
-import api from '../../services/api';
-
 import {
   Container,
   LeftCard,
   RightCard,
   LoginCard,
   AreaRegister,
-  CardWelcome,
-  AreaText,
 } from './styles';
 import { Input } from '../../components/Input';
 
@@ -20,6 +16,7 @@ import logo from '../../assets/images/logo.svg';
 
 const Login = () => {
   const sessionReducer = useSelector(state => state.session);
+  const userReducer = useSelector(state => state.users);
   const dispatch = useDispatch();
   const [dataSession, setDataSession] = useState({});
   const [stateError, setStateError] = useState(false);
@@ -55,18 +52,24 @@ const Login = () => {
       try {
         await schema.validate(dataSession);
 
-        const response = await api.get(
-          `/users?password=${dataSession.password}&email=${dataSession.email}`,
-          dataSession,
+        const user = userReducer.find(
+          userFind =>
+            userFind.email === dataSession.email &&
+            userFind.password === dataSession.password,
         );
 
-        if (!response.data[0]) {
-          throw new Error('Credenciais Inválidas');
+        if (!user) {
+          throw new Error('E-mail ou Senha inválidos');
         }
 
         dispatch({
           type: 'START_SESSION',
-          data: response.data[0],
+          data: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            password: user.password,
+          },
         });
 
         history.push('./tasks');
@@ -75,26 +78,11 @@ const Login = () => {
         setMsgError(error.message);
       }
     },
-    [dataSession, dispatch, history],
+    [dataSession, dispatch, history, userReducer],
   );
 
   return (
     <Container>
-      <CardWelcome>
-        <AreaText>
-          <h2>
-            Bem vindo(a) ao <span>ListTasks</span>
-          </h2>
-          <p>
-            O ListTask é um projeto avaliativo desenvolvido em React, realizado
-            para concorrer uma vaga de desenvolvedor frontend na{' '}
-            <a href="https://www.verzel.com.br/">VERZEL</a>, empresa de
-            desenvolvimento, consultoria e reestruturação de Sistemas de
-            Informação.
-          </p>
-        </AreaText>
-      </CardWelcome>
-
       <LoginCard>
         <LeftCard>
           <img src={logo} width="300px" alt="Logo ListTask" />
@@ -127,7 +115,7 @@ const Login = () => {
 
           <AreaRegister>
             <p>É novo por aqui?</p>
-            <Link to="/register">Cadastre-se</Link>
+            <Link to="/">Cadastre-se</Link>
           </AreaRegister>
         </RightCard>
       </LoginCard>
