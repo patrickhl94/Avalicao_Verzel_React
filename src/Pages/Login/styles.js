@@ -80,34 +80,3 @@ export const AreaRegister = styled.div`
     color: #50758d;
   }
 `;
-export const CardWelcome = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 550px;
-  margin: 0 25px;
-`;
-
-export const AreaText = styled.div`
-  text-align: center;
-
-  h2 {
-    font-size: 40px;
-    color: #50758d;
-
-    span {
-      color: #fad206;
-    }
-  }
-
-  p {
-    margin-top: 20px;
-    font-size: 18px;
-
-    a {
-      text-decoration: none;
-      color: #50758d;
-      font-weight: 500;
-    }
-  }
-`;
