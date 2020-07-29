@@ -32,7 +32,7 @@ const Header = () => {
             Sobre
           </a>
           <Link
-            style={{ cursor: userSession.token ? 'pointer' : 'not-allowed' }}
+            style={{ cursor: userSession.id ? 'pointer' : 'not-allowed' }}
             to="/tasks"
           >
             Lista de Tarefas
@@ -40,17 +40,17 @@ const Header = () => {
         </AreaMenu>
       </Container>
 
-      {userSession.token ? (
+      {userSession.id ? (
         <AreaLogout>
-          <span>Patrick Lima</span>
+          <span>{userSession.name}</span>
           <button onClick={logout} type="button">
             Sair
           </button>
         </AreaLogout>
       ) : (
         <AreaLogin>
-          <Link to="/">Entrar</Link>
-          <Link to="/register">Cadastre-se</Link>
+          <Link to="/login">Entrar</Link>
+          <Link to="/">Cadastre-se</Link>
         </AreaLogin>
       )}
     </Container>
