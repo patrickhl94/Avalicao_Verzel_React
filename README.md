@@ -64,7 +64,6 @@ devDependencies: {
     "eslint": "6.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "json-server": "^0.16.1",
     "prettier": "^2.0.5"
 }
 
@@ -93,19 +92,6 @@ yarn install
 ```bash
 yarn start
 ```
-## Iniciar a API _fake_:
-```bash
-yarn json-server server.json -p 3333 -w 
-```
-# **IMPORTANTE !**
-
-  Esta aplicação está utilizando a API fake [JSON Server](https://github.com/typicode/json-server) para realizar o login na aplicação e para fazer a listagem das tarefas, simulando está buscando os dados de uma API Rest, porém os dados de autenticação e listagem de tarefas, está de forma estática no arquivo `server.json` na raiz da aplicação. Para visualizar os dados ou alterar os dados, basta acessar este arquivo json, e alterar manualmente os dados. 
-  <br>
-  <br>
-  **POR PADRÃO JA DEIXEI ALGUNS USUÁRIOS CADASTRADOS, SE QUISER ACESSAR COM UM DOS USUÁRIOS CADASTRADOS, USE AS SEGUINTES CREDENCIAIS:**
-  
-  * email: **patrick@email.com**     
-  * email: **12345678**     
 
 </br>
 
@@ -116,7 +102,6 @@ yarn json-server server.json -p 3333 -w
 - `src/components/` -> Pasta que contém os componentes de apoio que são utilizados em mais de uma tela ou que são apenas de visualização (Input, Header, Modal)
 - `src/store` -> Pasta que contem arquivo de configuraça, store e modules do Redux
 - `src/routes` -> Pasta que contem as rotas principais da aplicação
-- `src/services` -> Pasta que contem arquivos de configuração de APIs externas
 - `src/assets/` -> Pasta que contem arquivos acessiveis státicos como imagens 
 - `src/utils` -> Arquivos úteis com funções expecíficas como validação de CEP, CPF e data de nascimento.
   
