@@ -1,4 +1,4 @@
-import { format, isBefore, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import produce from 'immer';
 
 function listTask(state = [], action) {
@@ -17,9 +17,7 @@ function listTask(state = [], action) {
           draft[taskIndex] = {
             ...draft[taskIndex],
             ...action.task,
-            status: action.task.dateConclusion
-              ? !!isBefore(parseISO(action.task.dateConclusion), new Date())
-              : false,
+            status: !!action.task.dateConclusion,
           };
         }
       });
