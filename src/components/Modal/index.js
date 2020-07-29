@@ -35,6 +35,7 @@ const Modal = ({ dataPropModal }) => {
       const { dateConclusion, dateDelivery, description, name } = task;
       setRegisterTask({ dateConclusion, dateDelivery, description, name });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataPropModal.idTask]);
 
   const closeModal = useCallback(() => {
