@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uuid } from 'uuidv4';
+import { isBefore, parseISO } from 'date-fns';
 import * as Yup from 'yup';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FiXCircle } from 'react-icons/fi';
 
 import {
@@ -23,12 +24,10 @@ const Modal = ({ dataPropModal }) => {
   );
   const [smallError, setSmallError] = useState(false);
   const dispath = useDispatch();
-  const taskUpdate = useSelector(state =>
-    state.listTask.filter(
-      tasks => tasks.id === dataPropModal.idTask,
-      shallowEqual,
-    ),
-  );
+  const userSession = useSelector(state => state.session);
+  const taskUpdate = useSelector(state => {
+    return state.listTask.filter(tasks => tasks.id === dataPropModal.idTask);
+  });
 
   useEffect(() => {
     const task = taskUpdate[0];
@@ -36,7 +35,6 @@ const Modal = ({ dataPropModal }) => {
       const { dateConclusion, dateDelivery, description, name } = task;
       setRegisterTask({ dateConclusion, dateDelivery, description, name });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataPropModal.idTask]);
 
   const closeModal = useCallback(() => {
@@ -71,12 +69,21 @@ const Modal = ({ dataPropModal }) => {
     try {
       await schema.validate(registerTask);
 
+      const { dateConclusion, dateDelivery } = registerTask;
+
+      if (isBefore(parseISO(dateConclusion), parseISO(dateDelivery))) {
+        throw new Error(
+          'A data da entrega não pode ser menor que a data da conclusão',
+        );
+      }
+
       dispath({
         type: 'ADD_TASK',
         task: {
           ...registerTask,
           id: uuid(),
-          status: false,
+          userId: userSession.id,
+          status: !!dateConclusion,
           toViewTask: false,
         },
       });
@@ -86,7 +93,7 @@ const Modal = ({ dataPropModal }) => {
       setSmallMsg(error.message);
       setSmallError(true);
     }
-  }, [registerTask, dispath, closeModal]);
+  }, [registerTask, dispath, closeModal, userSession.id]);
 
   const updateTaks = useCallback(async () => {
     const schema = Yup.object().shape({
@@ -105,6 +112,13 @@ const Modal = ({ dataPropModal }) => {
 
     try {
       await schema.validate(registerTask);
+
+      if (isBefore(parseISO(dateConclusion), parseISO(dateDelivery))) {
+        throw new Error(
+          'A data da entrega não pode ser menor que a data da conclusão',
+        );
+      }
+
       dispath({
         type: 'UPTADE_TASK',
         task: {
